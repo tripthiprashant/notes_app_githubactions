@@ -1,0 +1,20 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: notesapp-backend:latest
+    restart: unless-stopped
+    volumes:
+      - /opt/notesapp/data/db.sqlite3:/app/db.sqlite3
+
+  frontend:
+    build:
+      context: ./mynotes
+      dockerfile: Dockerfile
+    image: notesapp-frontend:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
