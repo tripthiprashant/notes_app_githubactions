@@ -33,7 +33,9 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/notesapp-backend:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/notesapp-backend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/notesapp-backend:${{ github.sha }}
 
       - name: Build and push frontend
         uses: docker/build-push-action@v6
@@ -41,4 +43,6 @@ jobs:
           context: ./mynotes
           file: ./mynotes/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/notesapp-frontend:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/notesapp-frontend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/notesapp-frontend:${{ github.sha }}
